@@ -69,3 +69,17 @@ h1 span { color: var(--teal); }
   font-size: 15px;
   line-height: 1.7;
 }
+.input-panel {
+    padding:24px 26px 19px;
+    border: 1px solid var(--line);
+    border-radius:16px;
+    background: white;
+    box-shadow:0 10px 28px rgba(37, 66, 64, 0.05);
+}
+.section-heading, .result-tiitle {
+    display:flex;
+    align-items:center;
+    justify-content:space-between,
+    gap: 14px
+}
+
