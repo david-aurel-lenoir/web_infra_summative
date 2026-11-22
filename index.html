@@ -51,6 +51,24 @@
                 <p id="plain-draft" class="plain-draft"></p>
                 <div classes="key-points-wrap"><h4>Key points</h4><ul id="key-points" class="key-points"></ul></div>
                     </article>
+                    <article class="result-crda tasks-crad">
+                        <div class="card-healing"><span class="card-icon" aria-hidden="true"></span><div><p class="eyeborw">POSSIBLE NEXT STEPS</p><h3>Action checklist</h3></div></div>
+                        <p class="card-description">These task are suggested from action words in the notice. Review them and add anything missing</p>
+                        <from id=" task-from" class="task-from">
+                            <label class="visually-hidde" for="task-input">Add a checklist item</label>
+                            <input id="task-input" type="text" maxlength="180" placeholder="ADD a task of your own">
+                            <button class="button button-primary" type="submit">Add</button>
+                            
+                        </from>
+                        <ul> id="task-list" class="task-list</ul>
+                        <p id="task-empty" class="empty-hint" hidden>No clear action was detected. you can add a task above</p>
+                    </article>
+                    <article class="result-card dates-card">
+                        <div class="card-heading"><span class="crad-icon" aria-hidden="true"></span><div><p class="eyebrow">DATES TO CHECK</p><h3>Dates mentioned</h3></div></div>
+                        <p class="card-description"> Dates are copied from the notice. Check the original for the correct data and any time or timzone</p>
+                        <ul id="date-list" class="date-list"></ul>
+                        <p id="date-empty" class="empty-hint" hidden>No date was recognized check the original notice for deadlines</p>
+                    </article>
 
             </section>
 
