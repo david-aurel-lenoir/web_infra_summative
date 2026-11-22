@@ -129,3 +129,31 @@ textarea::placeholder, input::placeholder {color: #9aa8a9;}
   justify-content: flex-end;
   gap: 8px;
 }
+.button {
+  min-height: 39px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+}
+.button-primary {background: var(--teal); color:white;}
+.button-primary:hover {background: var(--teal-dark); transform: translateY(-1px);}
+.button-primary:disabled {opacity: 55; cursor: not-allowed; transform: none;}
+.button-primary span {margin-left: 6px;}
+.button-light {background: #eaf3f1; color: var(--teal-dark);}
+.button-light:hover { background: #deece9; }
+.button-quiet { background: transparent; color: var(--muted); }
+.button-quiet:hover { background: #f0f4f3; }
+.status-message {
+  min-height: 16px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.status-message.error, .word-status.error {color: #a4473c;}
+
+
