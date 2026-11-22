@@ -110,3 +110,22 @@ textarea  {
     font-size: 13px;
     line-height: 1.65
 }
+textarea:focus, input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(39, 125, 119, 0.12);
+}
+textarea::placeholder, input::placeholder {color: #9aa8a9;}
+.input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+#character-count {color: #879398; font-size: 10px;}
+.input-button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
