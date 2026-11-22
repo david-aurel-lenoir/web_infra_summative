@@ -105,7 +105,7 @@ textarea  {
     border: 1px solid #d8e3e1;
     border-radius: 9px;
     outline:none;
-    backgound:#fcfdfd;
+    background:#fcfdfd;
     color: var(--ink);
     font-size: 13px;
     line-height: 1.65;
@@ -241,7 +241,7 @@ textarea::placeholder, input::placeholder {color: #9aa8a9;}
   font-size: 11px;
 }
 .task-form .button, .word-form .button {min-height: 39px;}
-.task-list, .date-list { dsiplay: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none;}
+.task-list, .date-list { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none;}
 .task-item {
   display: flex;
   align-items: flex-start;
