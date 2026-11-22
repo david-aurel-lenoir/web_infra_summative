@@ -156,4 +156,43 @@ textarea::placeholder, input::placeholder {color: #9aa8a9;}
 }
 .status-message.error, .word-status.error {color: #a4473c;}
 
+.result-section {padding-top: 42px;}
+.result-tiltle {margin-bottom: 14px;}
+.review-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 11px 13px;
+  border: 1px solid #f1ddc6;
+  border-radius: 9px;
+  background: #fff8ee;
+  color: #755c3d;
+}
+.review-note span {
+  display: grid;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f1d7b4;
+  color: #70502f;
+  font-weight: 800;
+}
+.review-note p {margin: 1px 0 0; font-size: 10px; line-height: 1.5;}
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 13px;
+}
+.result-card {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white; 
+}
+
 
