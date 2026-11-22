@@ -70,7 +70,28 @@
                         <p id="date-empty" class="empty-hint" hidden>No date was recognized check the original notice for deadlines</p>
                     </article>
 
+                    <article class="result-card word-card">
+                        <div class="card-heading"><span class="card-icon" aria-hidden="true"></span><div><p class="eyebrow">WORD HELPER</p><h3>Look up a difficult word</h3></div></div>
+                        <p class="card-description">Enter one English word to get a dictionary definintion Only that word is sent to the dictionary service</p>
+                        <form id="'word-form" class="word-form">
+                            <label class="visually-hidden" for="word-input">word to define</label>
+                            <input id="word-input" type="text" maxlength="40"
+                            autocomplete="off" placeholder="For example, submit">
+                            <button id="word-button" class="button button-primary" type="submit">Explain</button>
+                        </form>
+                        <p id="word-status" class="word-status" role="status" aria-lives="polite"></p>
+                        <div id="definition-result" class="definition-result" hidden></div>
+
+                    </article>
+                    </div>
+
             </section>
+
+            <footer class="page-footer">
+                <span>NoticeNudge keeps the original text in the tap</span>
+                <span> Definitions:</span> <a href="https://dictionaryapi.dev/" target="_blank" rel="noreferrer">Free Dictionary API</a></span>
+                <span id="server-status" class="server-status" hidden></span>
+            </footer>
 
 
         </main>
