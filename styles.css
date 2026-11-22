@@ -213,6 +213,47 @@ textarea::placeholder, input::placeholder {color: #9aa8a9;}
   color: var(--teal);
   font: 700 15px "Manrope", sans-serif; 
 }
+.plain-draft { margin-bottom:18px; color:#44535a; font-size:12px; line-height:1.75; white-space:pre-wrap; overflow-wrap:anywhere; }
+.key-points-wrap { padding-top: 13px; border-top: 1px solid var(--line); }
+.key-points-wrap h4 { margin: 0 0 9px; font: 700 11px "Manrope", sans-serif; }
+.key-points {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: #54636a;
+  font-size: 11px;
+  line-height: 1.55;
+}
+.key-points li::marker {color: var(--teal);}
+.card-description {margin:-3px 0 13px; color:var(--muted); font-size:10px; line-height:1.55;}
+.task-from, .word-form {display: flex; gap: 7px;}
+.task-form input, .word-form input {
+  width: 100%;
+  min-width: 0;
+  height: 39px;
+  padding: 0 11px;
+  border: 1px solid #d8e3e1;
+  border-radius: 8px;
+  outline: none;
+  background: #fcfdfd;
+  color: var(--ink);
+  font-size: 11px;
+}
+.task-form .button, .word-form .button {min-height: 39px;}
+.task-list, .date-list { dsiplay: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none;}
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #f6f9f8;
+  color: #46555b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 
 
 
