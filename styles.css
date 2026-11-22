@@ -105,10 +105,10 @@ textarea  {
     border: 1px solid #d8e3e1;
     border-radius: 9px;
     outline:none;
-    backgound:#fcfdfd
+    backgound:#fcfdfd;
     color: var(--ink);
     font-size: 13px;
-    line-height: 1.65
+    line-height: 1.65;
 }
 textarea:focus, input:focus {
   border-color: var(--teal);
