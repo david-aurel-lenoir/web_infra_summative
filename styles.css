@@ -194,5 +194,25 @@ textarea::placeholder, input::placeholder {color: #9aa8a9;}
   border-radius: 12px;
   background: white; 
 }
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.card-heading .eyebrow {margin-bottom: 4px;}
+.card-heading h3 {margin: 0; font: 700 15px "Manrope", sans-serif;}
+.card-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  border-radius: 11px;
+  background: #eaf3f1;
+  color: var(--teal);
+  font: 700 15px "Manrope", sans-serif; 
+}
+
 
 
