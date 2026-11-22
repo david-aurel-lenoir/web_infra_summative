@@ -46,3 +46,26 @@ h1, h2, h3, h4, p { margin-top: 0; }
   font-size: 16px;
 }
 .topbar-note { color: var(--muted); font-size: 12px; }
+
+.page-shell { width: min(100% - 36px, 1060px); margin: 0 auto; padding-bottom: 20px; }
+.hero { padding: 56px 0 32px; }
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+h1 {
+  margin: 0 0 16px;
+  font: 800 clamp(38px, 6vw, 60px)/1.04 "Manrope", sans-serif;
+  letter-spacing: -2.6px;
+}
+h1 span { color: var(--teal); }
+.hero-description {
+  max-width: 610px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
