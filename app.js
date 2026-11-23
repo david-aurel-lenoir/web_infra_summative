@@ -99,5 +99,33 @@ function makeDatesLits(text) {
         datelist.append(item);
     });
 }
-
+function makeSuggestedTasks(text) {
+  const matching = splitSentences(text).filter((sentence) =>
+    actionWords.test(sentence)
+  );
+  const unique = [...new Set(matching)].slice(0, 8);
+  tasks = unique.map((sentence, index) => ({
+    id: `suggested-${index}`,
+    text: simplifyText(sentence),
+    done: false
+  }));
+  renderTasks();
+}
+funtction renderTasks() {
+    taskList.replaceChildren();
+    taskEmpty.hidden = taskEmpty.length > 0;
+    tasks.forEach((task) => {
+    const item = document.createElement("li");
+    item.className = `task-item${task.done ? " completed" : ""}`;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.done;
+    checkbox.dataset.taskId = task.id;
+    checkbox.setAttribute("aria-label", `Mark task complete: ${task.text}`);
+    const text = document.createElement("span");
+    text.textContent = task.text;
+    item.append(checkbox, text);
+    taskList.append(item);
+    });
+}
     
