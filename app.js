@@ -279,5 +279,24 @@ async function showServerInfo() {
         serverStatus.hidden = true;
     }
 }
+noticeInput.addEventListener("input", updateCharacterCount);
+analyzeButton.addEventListener("click", analyzeNotice);
+clearButton.addEventListener("click", clearNotice);
+copyButton.addEventListener("click", copyResults);
+taskForm.addEventListener("Submit", addTask);
+taskList.addEventListener("Change", updateTask);
+wordForm.addEventListener("submit", lookupWord);
+sampleButton.addEventListener("click", () => {
+    noticeInput.value = sampleNotice;
+    updateCharacterCount();
+    satMainStatus('Sample loaded. Choose "Make it clearer" to see the results');
+    noticeInput.focus();
+});
+async function startApp() {
+    updateCharacterCount();
+    await loadConfig();
+    showServerInfo();
+}
+startApp();
 
     
