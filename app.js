@@ -63,4 +63,12 @@ function splitSentences(text) {
     const matches = text.match(/[^.!?\n]+[.!?]?/g) || [];
     return matches.map((sentence) => sentence.trim()). filter(Boolean);
 }
+function findDates(text) {
+    const found = new set();
+    datePatterns.forEach((pattern) => {
+        (text.match(pattern) || []).forEach((date) => found.add(date));
+    });
+    return [...found];
+}
+
     
