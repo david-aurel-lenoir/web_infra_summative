@@ -111,7 +111,7 @@ function makeSuggestedTasks(text) {
   }));
   renderTasks();
 }
-funtction renderTasks() {
+function renderTasks() {
     taskList.replaceChildren();
     taskEmpty.hidden = taskEmpty.length > 0;
     tasks.forEach((task) => {
@@ -128,4 +128,100 @@ funtction renderTasks() {
     taskList.append(item);
     });
 }
+function analyzeNotice() {
+  const notice = noticeInput.value.trim();
+  if (!notice) {
+    setMainStatus('Paste a notice first, then choose "Make it clearer."', true);
+    noticeInput.focus();
+    return;
+  }
+  latestPlainDraft = simplifyText(notice);
+  plainDraft.textContent = latestPlainDraft;
+  makeKeyPoints(notice);
+  makeSuggestedTasks(notice);
+  makeDateList(notice);
+  results.hidden = false;
+  setMainStatus("Draft ready. Check the original notice before acting.");
+  results.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function clearNotice() {
+    noticeInput.value = "";
+    tasks = [];
+    latestPlainDraft = "";
+    results.hidden = true;
+    definitionResult.hidden = true;
+    wordStatus.textContent = "";
+    wordStatus.classList.remove("error");
+    updateCharacterCount();
+    setMainStatus("Your notice statys in this browser tab");
+    noticeInput.focus();
+}
+async function copyResults() {
+    const taskLines = tasks.map((task) => `${task.done ? "[x]" : "[ ]"} ${task.text}`);
+    const dateLines = findDates(noticeInput.value).map((date) => `- ${date}`);
+    const parts = [
+    "Plain-language draft", latestPlainDraft,
+    "Action checklist", taskLines.join("\n") || "No clear action detected.",
+    "Dates mentioned", dateLines.join("\n") || "No date recognized."
+  ];
+  try {
+    await navigator.clipboard.writeText(parts.join("\n\n"));
+    setMainStatus("Your draft and checklist were copied.");
+  } catch (error) {
+    setMainStatus("Copying is unavailable. Copy the text manually.", true);
+  }
+}
+function addTask(event) {
+    event.preventDefault();
+    const text = taskInput.value.trim();
+    if (!text) return;
+    task.push({ id: `manual-${Date.now()}`, text, done: false});
+    taskInput.value = "";
+    renderTasks();
+}
+function updateTask(event) {
+    const taskId = event.target.dataset.taskId;
+    if (!taskId) return;
+    const task = tasks.find((item) => item.id === taskId);
+    if (!task) return;
+    task.done = event.target.checked;
+    renderTasks();
+}
+function renderDefinition(Entry) {
+    const meaning = Entry.meanings?.[0];
+    const first = meaning?.definition?.[0];
+    definitionResult.replaceChildren();
+    if (!first) {
+        wordStatus.textContent = "No definition was returned for that word";
+        wordStatus.classList.add("error");
+        definitionResult.hidden = true;
+        return;
+    }
+    const title = document.createElement("p");
+    title.calssName = "definition-word";
+    title.textContent = Entry.word || wordInput.value.trim();
+    const kind = document.createElement("span");
+    kind.className = "definition-kind";
+    kind.textContent = meaning.partOfSpeech || "Definition";
+    const definition = document.createElement("p");
+    definition.className = "definition-text";
+    definition.textContent = first.definition;
+    definitionResult.append(title, kind, definition);
+    if (first.example) {
+        const example = document.createElement ("p");
+        example.className = "definition-text";
+        example.textContent = `Example: ${first.example}`;
+        definitionResult.append(example);
+    }
+    const source = document.createElement("a");
+    source.className = "defintion-source";
+    source.href = "https://dictionaryapi.dev/";
+    source.target = "_blank";
+    source.rel = "noreferrer";
+    source.textContent = "Definition source";
+    definitionResult.append(source);
+    definitionResult.hidden = false;
+}
+
+
     
