@@ -27,3 +27,19 @@ const defaultConfig = {
 const sampleNotice = "Please be advised that all students are required to submit the completed registration form prior to April 30, 2026. In the event that you need assistance, contact the school office at 555-0182";
 let config = { ...defaultConfig };
 let tasks = []; let latestPlainDraft = "";
+const actionWords = /\b(please|required|must|need to|submit|complete|bring|pay|contact|attend|return|respond|register|renew|provide|sign|visit|call|send|book|make sure|ensure|due)\b/i;
+const monthNames =
+"January|February|March|April|May|June|July|August|September|October|November|December";
+const dataPatterns = [
+    /\b\d{4}-\d{1,2}-\d{1,2}\b/g,
+  /\b\d{1,2}[/.]\d{1,2}[/.]\d{2,4}\b/g,
+  new RegExp(`\\b(?:${monthNames})\\s+\\d{1,2}(?:st|nd|rd|th)?(?:,?\\s+\\d{4})?\\b`, "gi"), new RegExp(`\\b\\d{1,2}(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:${monthNames})(?:,?\\s+\\d{4})?\\b`, "gi"),
+  /\b(?:today|tomorrow|next\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday))\b/gi
+];
+function setMainStatus(message, isError = false) {
+    mainStatus.textContent = message;
+    mainStatus.classList.toggle("error", isError);
+}
+function updateCharacterCount() {
+    characterCount.textContent = `${noticeInput.ariaValueMax.length} / 8000 characters`;
+}
