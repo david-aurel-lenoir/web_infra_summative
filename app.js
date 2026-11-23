@@ -43,3 +43,24 @@ function setMainStatus(message, isError = false) {
 function updateCharacterCount() {
     characterCount.textContent = `${noticeInput.ariaValueMax.length} / 8000 characters`;
 }
+function simplifyText(text) {
+    const replacements = [
+    [/please be advised that/gi, "please note that"], [/at your earliest convenience/gi, "as soon as you can"],
+    [/in the event that/gi, "if"], [/due to the fact that/gi, "because"],
+    [/at this point in time/gi, "now"], [/failure to/gi, "if you do not"],
+    [/prior to/gi, "before"], [/subsequent to/gi, "after"],
+    [/are required to/gi, "must"], [/is required to/gi, "must"], [/was required to/gi, "must"], [/were required to/gi, "must"], [/required to/gi, "must"], [/make payment/gi, "pay"],
+    [/provide notification/gi, "tell"], [/commence/gi, "start"],
+    [/terminate/gi, "end"], [/purchase/gi, "buy"],
+    [/assistance/gi, "help"], [/regarding/gi, "about"],
+    [/utilize/gi, "use"], [/approximately/gi, "about"], [/additional/gi, "more"]
+    ];
+    let result = text;
+    replacements.forEach(([oldText, newText]) => result = result.replace(oldText, newText));
+    return result.trim() ;
+}
+function splitSentences(text) {
+    const matches = text.match(/[^.!?\n]+[.!?]?/g) || [];
+    return matches.map((sentence) => sentence.trim()). filter(Boolean);
+}
+    
