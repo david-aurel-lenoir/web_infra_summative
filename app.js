@@ -70,5 +70,34 @@ function findDates(text) {
     });
     return [...found];
 }
+function makeKeyPoints(text) {
+    const sentences = splitSentences(text);
+    const important = sentences.filter((sentences) => actionWords.test(sentence) || findDates(senetnce).length > 0);
+    const selected = (important.length ? important : sentences).slice(0, 4);
+    keyPoints.replaceChildren();
+    selected.forEach((sentence) => {
+        const item = document.createElement("li");
+        item.textContent = simplifyText(sentences);
+        ketPoints.append(item);
+    });
+}
+function makeDatesLits(text) {
+    const dates = findDates(text);
+    datelist.replaceChildren();
+    dateEmpty.hidden = dates.length > 0;
+    dates.forEach((date) => {
+        const context = splitSentences(text).find((sentences) => sentences.toLowerCase().includes(date.toLowerCase()) ) || text;
+        const item = document.createElement("li");
+        item.className = "date-item";
+        const value = document.createElement("span");
+        value.className = "date-value";
+        value.textContent = date;
+        const description = document.createElement("span");
+        description.className = "date-context";
+        description.textContent = simplifyText(context);
+        item.append(value, description);
+        datelist.append(item);
+    });
+}
 
     
