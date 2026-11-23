@@ -20,3 +20,10 @@ const wordButton = document.querySelector("#word-button");
 const wordStatus = document.querySelector("#word-status");
 const definitionResult = document.querySelector("#definition-result");
 const serverStatus = document.querySelector("#server-status");
+
+const defaultConfig = {
+    dictionaryUrl: "https://api.dictionaryapi.dev/api/v2/entries/en"
+};
+const sampleNotice = "Please be advised that all students are required to submit the completed registration form prior to April 30, 2026. In the event that you need assistance, contact the school office at 555-0182";
+let config = { ...defaultConfig };
+let tasks = []; let latestPlainDraft = "";
