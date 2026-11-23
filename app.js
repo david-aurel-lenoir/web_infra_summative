@@ -222,6 +222,62 @@ function renderDefinition(Entry) {
     definitionResult.append(source);
     definitionResult.hidden = false;
 }
-
+async function lookUpword(event) {
+    event.preventDefault();
+    const word = wordInput.value.trim();
+    if (!/^[a-zA-Z][a-zA-Z'-]*$/.test(word)) {
+        wordStatus.textContent = "Enter one English word using lletters, apostrophes or hyphens";
+        wordStatus.classList.add("error");
+        return;
+}
+wordButton.disabled = true;
+wordButton.textContent = "looking...";
+wordStatus.classList.remove("error");
+wordStatus.textContent = "Checking the disctionary...";
+definitionResult.hidden = true;
+try {
+    const url=
+    `${config.dictionaryUrl}/${encodeURIComponent(word.toLowerCase())}`;
+    const response = await fetch(url, { signal: AbortSignal.timeout(12000) });
+    const data = await response.json();
+    if (!response.ok || !Array.isArray(data) || !data[0]) {
+        throw new Error(data.message || "No definition was found");
+    }
+    wordStatus.textContent = "";
+    renderDefinition(data[0]);
+ }   catch (error) {
+    wordStatus.textContent = error.name === "TimeoutError"
+    ? "The dictionary took too long. Try again"
+    : error.message || "Could not reach the dictionary";
+    wordStatus.classList.add("error");
+    definitionResult.hidden = true;
+ }   finally {
+    wordButton.disabled = false;
+    wordButton.textContent = "Explain";
+ }
+}
+async function loadConfig() {
+    try {
+        const response = await fetch("/config.json");
+        if (!response.ok) return;
+        config = { ...defaultConfig, ...await response.json() };
+    
+    } catch (error) {
+        config = { ...defaultConfig };
+    }
+}
+async function showServerInfo() {
+    try {
+        const response = await fetch ("/server-info");
+        if (!response.ok) return;
+        const data = await repsonse.json();
+        if (data.server) {
+            serverStatus.textContent = `Served by ${data.server}`;
+            serverStatus.hidden =false;
+        }
+    } catch (error) {
+        serverStatus.hidden = true;
+    }
+}
 
     
