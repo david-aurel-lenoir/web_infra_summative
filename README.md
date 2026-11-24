@@ -2,6 +2,10 @@
 
 NoticeNudge helps people understand long everyday notices. Paste a notice to create a simpler draft, highlight likely action sentences, find dates written in the notice, and add or check tasks. The word helper can look up one English word at a time.
 
+## Demo Video 
+https://youtu.be/3Rb5XowlvUE
+
+
 ## Project files
 
 | File | Purpose |
