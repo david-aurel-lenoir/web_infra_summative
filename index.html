@@ -1,99 +1,96 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Turn long notices into a clearer draft, useful action list and deadline reminders">
-        <title> NoticeNudge | Understand what to do next</title>
-        <link rel="icon" href="data:,">
-        <link rel="stylesheet" href="styles.css">
-        <script src="app.js?v=2" defer></script>
-    </head>
-    <body>
-        <header class="topbar">
-            <a class="brand" href="#top" aria-label="NoticeNudge home"><span class="brand-mark">N</span><span>NoticeNudge</span></a>
-            <span class="topbar-note">Make the next step clear</span>
-        </header>
-        <main id="top" class="page-shell">
-            <section class="hero">
-                <p class="eyebrow">A CLEARER WAY THROUGH EVERYDAY NOTICES</p>
-                <h1>Know what it says<br><span>Know what to do</span></h1>
-                <p class="hero-description">Paste a school message, appointment note, bill notice or public announcement. NoticeNudge drafts a simpler version and pulls out possible actions and dates</p>
-            </section>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Turn long notices into a clearer draft, useful action list, and deadline reminders.">
+  <title>NoticeNudge | Understand what to do next</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js?v=2" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="NoticeNudge home"><span class="brand-mark">N</span><span>NoticeNudge</span></a>
+    <span class="topbar-note">Make the next step clear.</span>
+  </header>
 
-            <section class="input-panel" aria-labelledby="input-heading">
-                <div class="section-heading">
-                    <div><p class="eyebrow">START HERE</p><h2 id="input-heading">Paste your notice</h2></div>
-                    <span class="heading-symbol" aria-hidden="true">Aa</span>
-                </div>
-                <label class="notice-label" for="notice-input">Notice text</label>
-                <textarea id="notice-input" maxlength="8000" placeholder="Paste the notice text here. Dont forget to remove private details such a account numbers or personal identification numbers"></textarea>
-                <div class="input-footer">
-                    <span id="character-count">0 / 8000 characters</span>
-                    <div class="input-buttons">
-                        <button id="sample-button" class="button button-light" type="button">Try a sample</button>
-                        <button id=" analyze-button" class="button button-primary" type="button">Make it clearer <span aria-hidden="true">→</span></button>
-                    </div>
-                </div>
-                <p id="main-status" class="status-message" role="status" aria-live="polite">Your notice stays in the browser tab. The app sends only a word you reauest to define to the deictionary service</p>
-            </section>
+  <main id="top" class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">A CLEARER WAY THROUGH EVERYDAY NOTICES</p>
+      <h1>Know what it says.<br><span>Know what to do.</span></h1>
+      <p class="hero-description">Paste a school message, appointment note, bill notice, or public announcement. NoticeNudge drafts a simpler version and pulls out possible actions and dates.</p>
+    </section>
 
-            <section id="results" class="result-section" aria-labelldby="results-heading" hidden>
-                <div class="result-title">
-                    <div><p class="eyebrow">YOUR NOTICE, ORGANIZED</p><h2 id="results-heading"> A clearer draft</h2></div>
-                    <button id="copy-button" class="button button-light" type="button">Copy results</button>
-                </div>
-                <div class="review-note"><span aria-hidden="true">!</span><p>This is a computer generated draft based on commin formal phrases. Check it against the original notice before acting </p></div>
-                <div class="results-grid">
-                    <article class="result-card draft-card">
-                        <div class="card-heading"><span class="card-icon" aria-hidden="true">Aa</span><div><P class="eyebrow">PLAIN-LANGUAGE DRAFT</P><h3>Read this version</h3></div>
-                </div>
-                <p id="plain-draft" class="plain-draft"></p>
-                <div classes="key-points-wrap"><h4>Key points</h4><ul id="key-points" class="key-points"></ul></div>
-                    </article>
-                    <article class="result-crda tasks-crad">
-                        <div class="card-healing"><span class="card-icon" aria-hidden="true"></span><div><p class="eyeborw">POSSIBLE NEXT STEPS</p><h3>Action checklist</h3></div></div>
-                        <p class="card-description">These task are suggested from action words in the notice. Review them and add anything missing</p>
-                        <from id=" task-from" class="task-from">
-                            <label class="visually-hidde" for="task-input">Add a checklist item</label>
-                            <input id="task-input" type="text" maxlength="180" placeholder="ADD a task of your own">
-                            <button class="button button-primary" type="submit">Add</button>
-                            
-                        </from>
-                        <ul> id="task-list" class="task-list</ul>
-                        <p id="task-empty" class="empty-hint" hidden>No clear action was detected. you can add a task above</p>
-                    </article>
-                    <article class="result-card dates-card">
-                        <div class="card-heading"><span class="crad-icon" aria-hidden="true"></span><div><p class="eyebrow">DATES TO CHECK</p><h3>Dates mentioned</h3></div></div>
-                        <p class="card-description"> Dates are copied from the notice. Check the original for the correct data and any time or timzone</p>
-                        <ul id="date-list" class="date-list"></ul>
-                        <p id="date-empty" class="empty-hint" hidden>No date was recognized check the original notice for deadlines</p>
-                    </article>
+    <section class="input-panel" aria-labelledby="input-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">START HERE</p><h2 id="input-heading">Paste your notice</h2></div>
+        <span class="heading-symbol" aria-hidden="true">Aa</span>
+      </div>
+      <label class="notice-label" for="notice-input">Notice text</label>
+      <textarea id="notice-input" maxlength="8000" placeholder="Paste the notice text here. Remove private details such as account numbers or personal identification first."></textarea>
+      <div class="input-footer">
+        <span id="character-count">0 / 8000 characters</span>
+        <div class="input-buttons">
+          <button id="sample-button" class="button button-light" type="button">Try a sample</button>
+          <button id="clear-button" class="button button-quiet" type="button">Clear</button>
+          <button id="analyze-button" class="button button-primary" type="button">Make it clearer <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <p id="main-status" class="status-message" role="status" aria-live="polite">Your notice stays in this browser tab. The app sends only a word you request to define to the dictionary service.</p>
+    </section>
 
-                    <article class="result-card word-card">
-                        <div class="card-heading"><span class="card-icon" aria-hidden="true"></span><div><p class="eyebrow">WORD HELPER</p><h3>Look up a difficult word</h3></div></div>
-                        <p class="card-description">Enter one English word to get a dictionary definintion Only that word is sent to the dictionary service</p>
-                        <form id="'word-form" class="word-form">
-                            <label class="visually-hidden" for="word-input">word to define</label>
-                            <input id="word-input" type="text" maxlength="40"
-                            autocomplete="off" placeholder="For example, submit">
-                            <button id="word-button" class="button button-primary" type="submit">Explain</button>
-                        </form>
-                        <p id="word-status" class="word-status" role="status" aria-lives="polite"></p>
-                        <div id="definition-result" class="definition-result" hidden></div>
+    <section id="results" class="results-section" aria-labelledby="results-heading" hidden>
+      <div class="results-title">
+        <div><p class="eyebrow">YOUR NOTICE, ORGANIZED</p><h2 id="results-heading">A clearer draft</h2></div>
+        <button id="copy-button" class="button button-light" type="button">Copy results</button>
+      </div>
+      <div class="review-note"><span aria-hidden="true">!</span><p>This is a computer-generated draft based on common formal phrases. Check it against the original notice before acting.</p></div>
+      <div class="results-grid">
+        <article class="result-card draft-card">
+          <div class="card-heading"><span class="card-icon" aria-hidden="true">Aa</span><div><p class="eyebrow">PLAIN-LANGUAGE DRAFT</p><h3>Read this version</h3></div></div>
+          <p id="plain-draft" class="plain-draft"></p>
+          <div class="key-points-wrap"><h4>Key points</h4><ul id="key-points" class="key-points"></ul></div>
+        </article>
 
-                    </article>
-                    </div>
+        <article class="result-card tasks-card">
+          <div class="card-heading"><span class="card-icon" aria-hidden="true">✓</span><div><p class="eyebrow">POSSIBLE NEXT STEPS</p><h3>Action checklist</h3></div></div>
+          <p class="card-description">These tasks are suggested from action words in the notice. Review them and add anything missing.</p>
+          <form id="task-form" class="task-form">
+            <label class="visually-hidden" for="task-input">Add a checklist item</label>
+            <input id="task-input" type="text" maxlength="180" placeholder="Add a task of your own">
+            <button class="button button-primary" type="submit">Add</button>
+          </form>
+          <ul id="task-list" class="task-list"></ul>
+          <p id="task-empty" class="empty-hint" hidden>No clear action was detected. You can add a task above.</p>
+        </article>
 
-            </section>
+        <article class="result-card dates-card">
+          <div class="card-heading"><span class="card-icon" aria-hidden="true">◷</span><div><p class="eyebrow">DATES TO CHECK</p><h3>Dates mentioned</h3></div></div>
+          <p class="card-description">Dates are copied from the notice. Check the original for the correct date and any time or timezone.</p>
+          <ul id="date-list" class="date-list"></ul>
+          <p id="date-empty" class="empty-hint" hidden>No date was recognized. Check the original notice for deadlines.</p>
+        </article>
 
-            <footer class="page-footer">
-                <span>NoticeNudge keeps the original text in the tap</span>
-                <span> Definitions:</span> <a href="https://dictionaryapi.dev/" target="_blank" rel="noreferrer">Free Dictionary API</a></span>
-                <span id="server-status" class="server-status" hidden></span>
-            </footer>
+        <article class="result-card word-card">
+          <div class="card-heading"><span class="card-icon" aria-hidden="true">?</span><div><p class="eyebrow">WORD HELPER</p><h3>Look up a difficult word</h3></div></div>
+          <p class="card-description">Enter one English word to get a dictionary definition. Only that word is sent to the dictionary service.</p>
+          <form id="word-form" class="word-form">
+            <label class="visually-hidden" for="word-input">Word to define</label>
+            <input id="word-input" type="text" maxlength="40" autocomplete="off" placeholder="For example, submit">
+            <button id="word-button" class="button button-primary" type="submit">Explain</button>
+          </form>
+          <p id="word-status" class="word-status" role="status" aria-live="polite"></p>
+          <div id="definition-result" class="definition-result" hidden></div>
+        </article>
+      </div>
+    </section>
 
-
-        </main>
-    </body>
+    <footer class="page-footer">
+      <span>NoticeNudge keeps the original text in this tab.</span>
+      <span>Definitions: <a href="https://dictionaryapi.dev/" target="_blank" rel="noreferrer">Free Dictionary API</a></span>
+      <span id="server-status" class="server-status" hidden></span>
+    </footer>
+  </main>
+</body>
 </html>
