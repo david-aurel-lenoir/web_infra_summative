@@ -7,7 +7,7 @@ const mainStatus = document.querySelector("#main-status");
 const results = document.querySelector("#results");
 const plainDraft = document.querySelector("#plain-draft");
 const keyPoints = document.querySelector("#key-points");
-const datelist = document.querySelector("#date-list");
+const dateList = document.querySelector("#date-list");
 const dateEmpty = document.querySelector("#date-empty");
 const taskForm = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
@@ -20,31 +20,29 @@ const wordButton = document.querySelector("#word-button");
 const wordStatus = document.querySelector("#word-status");
 const definitionResult = document.querySelector("#definition-result");
 const serverStatus = document.querySelector("#server-status");
-
 const defaultConfig = {
-    dictionaryUrl: "https://api.dictionaryapi.dev/api/v2/entries/en"
+  dictionaryUrl: "https://api.dictionaryapi.dev/api/v2/entries/en"
 };
-const sampleNotice = "Please be advised that all students are required to submit the completed registration form prior to April 30, 2026. In the event that you need assistance, contact the school office at 555-0182";
+const sampleNotice = "Please be advised that all students are required to submit the completed registration form prior to April 30, 2026. In the event that you need assistance, contact the school office at 555-0182.";
 let config = { ...defaultConfig };
 let tasks = []; let latestPlainDraft = "";
 const actionWords = /\b(please|required|must|need to|submit|complete|bring|pay|contact|attend|return|respond|register|renew|provide|sign|visit|call|send|book|make sure|ensure|due)\b/i;
-const monthNames =
-"January|February|March|April|May|June|July|August|September|October|November|December";
-const dataPatterns = [
-    /\b\d{4}-\d{1,2}-\d{1,2}\b/g,
+const monthNames = "January|February|March|April|May|June|July|August|September|October|November|December";
+const datePatterns = [
+  /\b\d{4}-\d{1,2}-\d{1,2}\b/g,
   /\b\d{1,2}[/.]\d{1,2}[/.]\d{2,4}\b/g,
   new RegExp(`\\b(?:${monthNames})\\s+\\d{1,2}(?:st|nd|rd|th)?(?:,?\\s+\\d{4})?\\b`, "gi"), new RegExp(`\\b\\d{1,2}(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:${monthNames})(?:,?\\s+\\d{4})?\\b`, "gi"),
   /\b(?:today|tomorrow|next\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday))\b/gi
 ];
 function setMainStatus(message, isError = false) {
-    mainStatus.textContent = message;
-    mainStatus.classList.toggle("error", isError);
+  mainStatus.textContent = message;
+  mainStatus.classList.toggle("error", isError);
 }
 function updateCharacterCount() {
-    characterCount.textContent = `${noticeInput.ariaValueMax.length} / 8000 characters`;
+  characterCount.textContent = `${noticeInput.value.length} / 8000 characters`;
 }
 function simplifyText(text) {
-    const replacements = [
+  const replacements = [
     [/please be advised that/gi, "please note that"], [/at your earliest convenience/gi, "as soon as you can"],
     [/in the event that/gi, "if"], [/due to the fact that/gi, "because"],
     [/at this point in time/gi, "now"], [/failure to/gi, "if you do not"],
@@ -54,50 +52,54 @@ function simplifyText(text) {
     [/terminate/gi, "end"], [/purchase/gi, "buy"],
     [/assistance/gi, "help"], [/regarding/gi, "about"],
     [/utilize/gi, "use"], [/approximately/gi, "about"], [/additional/gi, "more"]
-    ];
-    let result = text;
-    replacements.forEach(([oldText, newText]) => result = result.replace(oldText, newText));
-    return result.trim() ;
+  ];
+  let result = text;
+  replacements.forEach(([oldText, newText]) => result = result.replace(oldText, newText));
+  return result.trim();
 }
 function splitSentences(text) {
-    const matches = text.match(/[^.!?\n]+[.!?]?/g) || [];
-    return matches.map((sentence) => sentence.trim()). filter(Boolean);
+  const matches = text.match(/[^.!?\n]+[.!?]?/g) || [];
+  return matches.map((sentence) => sentence.trim()).filter(Boolean);
 }
 function findDates(text) {
-    const found = new set();
-    datePatterns.forEach((pattern) => {
-        (text.match(pattern) || []).forEach((date) => found.add(date));
-    });
-    return [...found];
+  const found = new Set();
+  datePatterns.forEach((pattern) => {
+    (text.match(pattern) || []).forEach((date) => found.add(date));
+  });
+  return [...found];
 }
 function makeKeyPoints(text) {
-    const sentences = splitSentences(text);
-    const important = sentences.filter((sentences) => actionWords.test(sentence) || findDates(senetnce).length > 0);
-    const selected = (important.length ? important : sentences).slice(0, 4);
-    keyPoints.replaceChildren();
-    selected.forEach((sentence) => {
-        const item = document.createElement("li");
-        item.textContent = simplifyText(sentences);
-        ketPoints.append(item);
-    });
+  const sentences = splitSentences(text);
+  const important = sentences.filter((sentence) =>
+    actionWords.test(sentence) || findDates(sentence).length > 0
+  );
+  const selected = (important.length ? important : sentences).slice(0, 4);
+  keyPoints.replaceChildren();
+  selected.forEach((sentence) => {
+    const item = document.createElement("li");
+    item.textContent = simplifyText(sentence);
+    keyPoints.append(item);
+  });
 }
-function makeDatesLits(text) {
-    const dates = findDates(text);
-    datelist.replaceChildren();
-    dateEmpty.hidden = dates.length > 0;
-    dates.forEach((date) => {
-        const context = splitSentences(text).find((sentences) => sentences.toLowerCase().includes(date.toLowerCase()) ) || text;
-        const item = document.createElement("li");
-        item.className = "date-item";
-        const value = document.createElement("span");
-        value.className = "date-value";
-        value.textContent = date;
-        const description = document.createElement("span");
-        description.className = "date-context";
-        description.textContent = simplifyText(context);
-        item.append(value, description);
-        datelist.append(item);
-    });
+function makeDateList(text) {
+  const dates = findDates(text);
+  dateList.replaceChildren();
+  dateEmpty.hidden = dates.length > 0;
+  dates.forEach((date) => {
+    const context = splitSentences(text).find((sentence) =>
+      sentence.toLowerCase().includes(date.toLowerCase())
+    ) || text;
+    const item = document.createElement("li");
+    item.className = "date-item";
+    const value = document.createElement("span");
+    value.className = "date-value";
+    value.textContent = date;
+    const description = document.createElement("span");
+    description.className = "date-context";
+    description.textContent = simplifyText(context);
+    item.append(value, description);
+    dateList.append(item);
+  });
 }
 function makeSuggestedTasks(text) {
   const matching = splitSentences(text).filter((sentence) =>
@@ -112,9 +114,9 @@ function makeSuggestedTasks(text) {
   renderTasks();
 }
 function renderTasks() {
-    taskList.replaceChildren();
-    taskEmpty.hidden = taskEmpty.length > 0;
-    tasks.forEach((task) => {
+  taskList.replaceChildren();
+  taskEmpty.hidden = tasks.length > 0;
+  tasks.forEach((task) => {
     const item = document.createElement("li");
     item.className = `task-item${task.done ? " completed" : ""}`;
     const checkbox = document.createElement("input");
@@ -126,7 +128,7 @@ function renderTasks() {
     text.textContent = task.text;
     item.append(checkbox, text);
     taskList.append(item);
-    });
+  });
 }
 function analyzeNotice() {
   const notice = noticeInput.value.trim();
@@ -145,21 +147,21 @@ function analyzeNotice() {
   results.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 function clearNotice() {
-    noticeInput.value = "";
-    tasks = [];
-    latestPlainDraft = "";
-    results.hidden = true;
-    definitionResult.hidden = true;
-    wordStatus.textContent = "";
-    wordStatus.classList.remove("error");
-    updateCharacterCount();
-    setMainStatus("Your notice statys in this browser tab");
-    noticeInput.focus();
+  noticeInput.value = "";
+  tasks = [];
+  latestPlainDraft = "";
+  results.hidden = true;
+  definitionResult.hidden = true;
+  wordStatus.textContent = "";
+  wordStatus.classList.remove("error");
+  updateCharacterCount();
+  setMainStatus("Your notice stays in this browser tab.");
+  noticeInput.focus();
 }
 async function copyResults() {
-    const taskLines = tasks.map((task) => `${task.done ? "[x]" : "[ ]"} ${task.text}`);
-    const dateLines = findDates(noticeInput.value).map((date) => `- ${date}`);
-    const parts = [
+  const taskLines = tasks.map((task) => `${task.done ? "[x]" : "[ ]"} ${task.text}`);
+  const dateLines = findDates(noticeInput.value).map((date) => `- ${date}`);
+  const parts = [
     "Plain-language draft", latestPlainDraft,
     "Action checklist", taskLines.join("\n") || "No clear action detected.",
     "Dates mentioned", dateLines.join("\n") || "No date recognized."
@@ -172,131 +174,127 @@ async function copyResults() {
   }
 }
 function addTask(event) {
-    event.preventDefault();
-    const text = taskInput.value.trim();
-    if (!text) return;
-    task.push({ id: `manual-${Date.now()}`, text, done: false});
-    taskInput.value = "";
-    renderTasks();
+  event.preventDefault();
+  const text = taskInput.value.trim();
+  if (!text) return;
+  tasks.push({ id: `manual-${Date.now()}`, text, done: false });
+  taskInput.value = "";
+  renderTasks();
 }
 function updateTask(event) {
-    const taskId = event.target.dataset.taskId;
-    if (!taskId) return;
-    const task = tasks.find((item) => item.id === taskId);
-    if (!task) return;
-    task.done = event.target.checked;
-    renderTasks();
+  const taskId = event.target.dataset.taskId;
+  if (!taskId) return;
+  const task = tasks.find((item) => item.id === taskId);
+  if (!task) return;
+  task.done = event.target.checked;
+  renderTasks();
 }
-function renderDefinition(Entry) {
-    const meaning = Entry.meanings?.[0];
-    const first = meaning?.definition?.[0];
-    definitionResult.replaceChildren();
-    if (!first) {
-        wordStatus.textContent = "No definition was returned for that word";
-        wordStatus.classList.add("error");
-        definitionResult.hidden = true;
-        return;
-    }
-    const title = document.createElement("p");
-    title.calssName = "definition-word";
-    title.textContent = Entry.word || wordInput.value.trim();
-    const kind = document.createElement("span");
-    kind.className = "definition-kind";
-    kind.textContent = meaning.partOfSpeech || "Definition";
-    const definition = document.createElement("p");
-    definition.className = "definition-text";
-    definition.textContent = first.definition;
-    definitionResult.append(title, kind, definition);
-    if (first.example) {
-        const example = document.createElement ("p");
-        example.className = "definition-text";
-        example.textContent = `Example: ${first.example}`;
-        definitionResult.append(example);
-    }
-    const source = document.createElement("a");
-    source.className = "defintion-source";
-    source.href = "https://dictionaryapi.dev/";
-    source.target = "_blank";
-    source.rel = "noreferrer";
-    source.textContent = "Definition source";
-    definitionResult.append(source);
-    definitionResult.hidden = false;
+function renderDefinition(entry) {
+  const meaning = entry.meanings?.[0];
+  const first = meaning?.definitions?.[0];
+  definitionResult.replaceChildren();
+  if (!first) {
+    wordStatus.textContent = "No definition was returned for that word.";
+    wordStatus.classList.add("error");
+    definitionResult.hidden = true;
+    return;
+  }
+  const title = document.createElement("p");
+  title.className = "definition-word";
+  title.textContent = entry.word || wordInput.value.trim();
+  const kind = document.createElement("span");
+  kind.className = "definition-kind";
+  kind.textContent = meaning.partOfSpeech || "Definition";
+  const definition = document.createElement("p");
+  definition.className = "definition-text";
+  definition.textContent = first.definition;
+  definitionResult.append(title, kind, definition);
+  if (first.example) {
+    const example = document.createElement("p");
+    example.className = "definition-text";
+    example.textContent = `Example: ${first.example}`;
+    definitionResult.append(example);
+  }
+  const source = document.createElement("a");
+  source.className = "definition-source";
+  source.href = "https://dictionaryapi.dev/";
+  source.target = "_blank";
+  source.rel = "noreferrer";
+  source.textContent = "Definition source";
+  definitionResult.append(source);
+  definitionResult.hidden = false;
 }
-async function lookUpword(event) {
-    event.preventDefault();
-    const word = wordInput.value.trim();
-    if (!/^[a-zA-Z][a-zA-Z'-]*$/.test(word)) {
-        wordStatus.textContent = "Enter one English word using lletters, apostrophes or hyphens";
-        wordStatus.classList.add("error");
-        return;
-}
-wordButton.disabled = true;
-wordButton.textContent = "looking...";
-wordStatus.classList.remove("error");
-wordStatus.textContent = "Checking the disctionary...";
-definitionResult.hidden = true;
-try {
-    const url=
-    `${config.dictionaryUrl}/${encodeURIComponent(word.toLowerCase())}`;
+async function lookUpWord(event) {
+  event.preventDefault();
+  const word = wordInput.value.trim();
+  if (!/^[a-zA-Z][a-zA-Z'-]*$/.test(word)) {
+    wordStatus.textContent = "Enter one English word using letters, apostrophes, or hyphens.";
+    wordStatus.classList.add("error");
+    return;
+  }
+  wordButton.disabled = true;
+  wordButton.textContent = "Looking…";
+  wordStatus.classList.remove("error");
+  wordStatus.textContent = "Checking the dictionary…";
+  definitionResult.hidden = true;
+  try {
+    const url = `${config.dictionaryUrl}/${encodeURIComponent(word.toLowerCase())}`;
     const response = await fetch(url, { signal: AbortSignal.timeout(12000) });
     const data = await response.json();
     if (!response.ok || !Array.isArray(data) || !data[0]) {
-        throw new Error(data.message || "No definition was found");
+      throw new Error(data.message || "No definition was found.");
     }
     wordStatus.textContent = "";
     renderDefinition(data[0]);
- }   catch (error) {
+  } catch (error) {
     wordStatus.textContent = error.name === "TimeoutError"
-    ? "The dictionary took too long. Try again"
-    : error.message || "Could not reach the dictionary";
+      ? "The dictionary took too long. Try again."
+      : error.message || "Could not reach the dictionary.";
     wordStatus.classList.add("error");
     definitionResult.hidden = true;
- }   finally {
+  } finally {
     wordButton.disabled = false;
     wordButton.textContent = "Explain";
- }
+  }
 }
 async function loadConfig() {
-    try {
-        const response = await fetch("/config.json");
-        if (!response.ok) return;
-        config = { ...defaultConfig, ...await response.json() };
-    
-    } catch (error) {
-        config = { ...defaultConfig };
-    }
+  try {
+    const response = await fetch("/config.json");
+    if (!response.ok) return;
+    config = { ...defaultConfig, ...await response.json() };
+  } catch (error) {
+    config = { ...defaultConfig };
+  }
 }
 async function showServerInfo() {
-    try {
-        const response = await fetch ("/server-info");
-        if (!response.ok) return;
-        const data = await repsonse.json();
-        if (data.server) {
-            serverStatus.textContent = `Served by ${data.server}`;
-            serverStatus.hidden =false;
-        }
-    } catch (error) {
-        serverStatus.hidden = true;
+  try {
+    const response = await fetch("/server-info");
+    if (!response.ok) return;
+    const data = await response.json();
+    if (data.server) {
+      serverStatus.textContent = `Served by ${data.server}`;
+      serverStatus.hidden = false;
     }
+  } catch (error) {
+    serverStatus.hidden = true;
+  }
 }
 noticeInput.addEventListener("input", updateCharacterCount);
 analyzeButton.addEventListener("click", analyzeNotice);
 clearButton.addEventListener("click", clearNotice);
 copyButton.addEventListener("click", copyResults);
-taskForm.addEventListener("Submit", addTask);
-taskList.addEventListener("Change", updateTask);
-wordForm.addEventListener("submit", lookupWord);
+taskForm.addEventListener("submit", addTask);
+taskList.addEventListener("change", updateTask);
+wordForm.addEventListener("submit", lookUpWord);
 sampleButton.addEventListener("click", () => {
-    noticeInput.value = sampleNotice;
-    updateCharacterCount();
-    satMainStatus('Sample loaded. Choose "Make it clearer" to see the results');
-    noticeInput.focus();
+  noticeInput.value = sampleNotice;
+  updateCharacterCount();
+  setMainStatus('Sample loaded. Choose "Make it clearer" to see results.');
+  noticeInput.focus();
 });
 async function startApp() {
-    updateCharacterCount();
-    await loadConfig();
-    showServerInfo();
+  updateCharacterCount();
+  await loadConfig();
+  showServerInfo();
 }
 startApp();
-
-    
