@@ -54,10 +54,11 @@ Then open http://localhost:8000. Internet access is needed for word definitions.
 | Web 02 | `3.8.49.140` |
 | Load balancer | `35.178.51.72` |
 
-## Live Application
-access via load balancer `http://35.178.51.72`
-access via web-01 server `http://3.10.169.232`
-access via web-02 server `http://3.8.49.140`
+## Live application
+
+- **Load balancer:** [http://35.178.51.72](http://35.178.51.72)
+- **Web 01:** [http://3.10.169.232](http://3.10.169.232)
+- **Web 02:** [http://3.8.49.140](http://3.8.49.140)
 
 ### 1. Install the app on both web servers
 
